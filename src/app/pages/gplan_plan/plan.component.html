@@ -1,0 +1,246 @@
+<!-- Nav tabs -->
+<div *ngIf="cargando_tabla ">
+    <app-loading1></app-loading1>
+</div>
+
+
+<div class="row animated fadeIn" *ngIf="!cargando_tabla ">
+    <div class="col-md-12">
+        <div class="card">
+            <!--  <div class="card-body p-b-0">
+                <h4 class="card-title">{{titulo}}</h4>
+            </div> -->
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs customtab" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#plan" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Info. Plan</span></a> </li>
+                <li class="nav-item" *ngIf="pk_plan != 0"> <a (click)="asignarComponenteDinamico('meta')" class="nav-link" data-toggle="tab" href="#meta" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Metas</span></a> </li>
+            </ul>
+
+            <div class="tab-content">
+
+                <!-- INFORMACION PERSONA - PROFESIONAL -->
+                <div class="tab-pane p-20 active" id="plan" role="tabpanel">
+
+                    <form #formulario="ngForm" (ngSubmit)="confirmarGuardar()" ngNativeValidate>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* ODS</strong></label>
+                                    <ng-select [(ngModel)]="pk_ods" (clear)="clean()" (change)="cargarObjetivosPNTV()" name="pk_ods" bindValue="pk_ods" placeholder="Seleccione.." bindLabel="nombre_ods" [items]="listaODS" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.nombre_ods}}
+                                            <br />
+                                            <small><strong>Número: </strong>{{item.numeral_ods}}</small><br />
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Ejes</strong></label>
+                                    <ng-select [(ngModel)]="pk_eje" (clear)="clean()" (change)="cargarObjetivosPNTV()" name="pk_eje" bindValue="pk_eje" placeholder="Seleccione.." bindLabel="nombre_eje" [items]="listaEjes" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.nombre_eje}}
+                                            <br />
+                                            <small><strong>Número: </strong>{{item.numeral_eje}}</small><br />
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Objetivos</strong></label>
+                                    <ng-select [(ngModel)]="planTarget.fk_pntvods" name="pk_pntvods" bindValue="pk_pntvods" placeholder="Seleccione.." bindLabel="nombre_obj" [items]="listaObjetivosPNTV" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.nombre_obj}}
+                                            <br />
+                                            <small><strong>Objetivo # </strong>{{item.numeral_obj}}</small><br />
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Objetivo Estratégico</strong></label>
+                                    <ng-select [(ngModel)]="planTarget.fk_objestra" name="pk_objestra" bindValue="pk_objestra" placeholder="Seleccione.." bindLabel="nombre_objestra" [items]="listaObjetivosEstrategicos" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.nombre_objestra}}
+
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Competencias GADs</strong></label>
+                                    <ng-select [(ngModel)]="planTarget.fk_compgad" name="pk_compgad" bindValue="pk_compgad" placeholder="Seleccione.." bindLabel="nombre_compgad" [items]="listaCompetencias" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            <small><div style="white-space: normal;">{{item.nombre_compgad}}</div></small>
+                                            <br />
+                                            <small><strong>Fuente: </strong>{{item.fuente_compgad}} / <strong>Código: </strong>{{item.pk_compgad}}</small><br />
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Componentes</strong></label>
+                                    <ng-select [(ngModel)]="planTarget.pk_compo" name="pk_compo" bindValue="pk_compo" placeholder="Seleccione.." bindLabel="nombre_compo" [items]="listaComponentes" required DirectivaMayusculas>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{item.nombre_compo}}
+
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Categoría</strong></label>
+                                    <textarea class="form-control" [(ngModel)]="planTarget.categoria_plan" name="categoria_plan" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Programa</strong></label>
+                                    <textarea class="form-control" [(ngModel)]="planTarget.programa_plan" name="programa_plan" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Proyecto</strong></label>
+                                    <textarea class="form-control" [(ngModel)]="planTarget.proyecto_plan" name="proyecto_plan" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Indicador</strong></label>
+                                    <input type="text" class="form-control" [(ngModel)]="planTarget.indicador_plan" name="indicador_plan" placeholder="Describa Indicador" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* UM</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="planTarget.unimed_plan" name="unimed_plan" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Línea Base</b></label>
+                                    <input type="text" class="form-control" (blur)="calcularVA()" (keyup.enter)="calcularVA()" [(ngModel)]="planTarget.linea_base_plan" name="linea_base_plan" DirectivaNumeros2 decimals="4" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Meta Final</b></label>
+                                    <input type="text" class="form-control" (blur)="calcularVA()" (keyup.enter)="calcularVA()" [(ngModel)]="planTarget.meta_plan" name="meta_plan" DirectivaNumeros2 decimals="4" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Año Base</b></label>
+                                    <input type="text" class="form-control" (blur)="calcularVA()" (keyup.enter)="calcularVA()" [(ngModel)]="planTarget.anio_base_plan" name="anio_base_plan" placeholder="Año" required DirectivaNumeros>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Año Meta</b></label>
+                                    <input type="text" class="form-control" (blur)="calcularVA()" (keyup.enter)="calcularVA()" [(ngModel)]="planTarget.anio_meta_plan" name="anio_meta_plan" placeholder="Año" required DirectivaNumeros>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Tipo (VA)</b></label>
+                                    <select class="form-control" class="form-control" (change)="calcularVA()" id="tipo_va_plan" name="tipo_va_plan" [(ngModel)]="planTarget.tipo_va_plan" required>
+                                        <option value="null" disabled selected>Seleccione...</option> 
+                                        <option value="C">CRECIENTE </option> 
+                                        <option value="D">DECRECIENTE </option> 
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group text-center">
+                                    <label class="control-label"><b> Valor (VA)</b>&nbsp;&nbsp; </label>
+                                    <a class="mytooltip tooltip-effect-8"><i class="fa fa-info-circle"></i>
+                                        <span class="mytooltip tooltip-effect-1">
+                                                <span class="tooltip-content clearfix">
+                                                    <img src="assets/images/tooltip/Euclid.png" alt="euclid" /><span class="tooltip-text">Debe ingresar la Línea Base, Meta Final, Año Base, Año Meta para calcular automaticamente la variación anual.</span> </span>
+                                            </span>
+                                    </a>
+                                    <h1> <span class="badge badge-info">{{ planTarget.va_anual_plan }}</span></h1>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Presupuesto</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="planTarget.presupuesto_plan" name="presupuesto_plan" placeholder="$ 0.00" DirectivaNumeros2 decimals="2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="text-left">
+                                <div class="button-group">
+
+                                    <button type="submit " class="btn waves-effect waves-light btn-success " [disabled]="formulario.invalid">
+                                    <i class="fa fa-check"></i> Guardar
+                                </button>
+
+                                    <button (click)='cancelar()' type="button" class="btn waves-effect waves-light btn-warning">
+                                     <i class ="fa fa-close"></i> Cancelar
+                                </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- INFORMACION PERSONA - PROFESIONAL -->
+                <div class="tab-pane p-20" id="meta" role="tabpanel">
+                    <!-- <app-metas [planTarget]="planTarget"></app-metas>-->
+                    <!-- Aqui se insertara el componente dinamico -->
+                    <div #container></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

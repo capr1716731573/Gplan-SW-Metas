@@ -28,6 +28,13 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MenuComponent } from './menu/menu.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { ListaPlanesComponent } from './gplan_plan/lista-planes.component';
+import { PlanComponent } from './gplan_plan/plan.component';
+import { TipoGadComponent } from './gplan_configuracion/tipo-gad.component';
+import { Contenedor1Component } from './gplan_configuracion/contenedor1.component';
+import { GadComponent } from './gplan_configuracion/gad.component';
+import { Contenedor2Component } from './gplan_configuracion/contenedor2.component';
+import { ObjetivoEstrategicoComponent } from './gplan_configuracion/objetivo-estrategico.component';
 
 const pagesRoutes: Routes=[
     //RUTA DE PAGINAS O DE PAGINA PRINCIPAL QUE TIENE TODO HEADER , SIDEBAR , MAIN PAGE
@@ -64,6 +71,16 @@ const pagesRoutes: Routes=[
             { path:'usuario/:id', component: UsuarioComponent ,data:{ titulo:'Registro Usuario'},canActivate:[VerificarTokenGuard]},
             { path:'menu', component: MenuComponent ,data:{ titulo:'Menú del Sistema'},canActivate:[VerificarTokenGuard]},
             { path:'agenda', component: AgendaComponent ,data:{ titulo:'Agenda'},canActivate:[VerificarTokenGuard]},
+            //GPLAN
+            { path:'plan', component: ListaPlanesComponent ,data:{ titulo:'Planificación'},canActivate:[VerificarTokenGuard]},
+            { path:'objetivos', component: ObjetivoEstrategicoComponent ,data:{ titulo:'Objetivos Estratégicos'},canActivate:[VerificarTokenGuard]},
+            { path:'plan/:pk_plan/:gad', component: PlanComponent ,data:{ titulo:'Planificación'},canActivate:[VerificarTokenGuard]},
+            { path:'gad', component:GadComponent ,data:{ titulo:'Registro GAD'},canActivate:[VerificarTokenGuard]},
+            { path:'contenedor1', component:Contenedor1Component ,data:{ titulo:'Configuración GADs'},canActivate:[VerificarTokenGuard]},
+            { path:'contenedor2', component:Contenedor2Component ,data:{ titulo:'Configuración ODS'},canActivate:[VerificarTokenGuard]},
+
+
+
             { path:'', redirectTo:'/dashboard', pathMatch:'full' }
         ] }
 ];

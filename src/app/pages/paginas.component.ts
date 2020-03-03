@@ -23,12 +23,12 @@ export class PaginasComponent implements OnInit {
   }
 
   cargarMenu(){
-    this._menuPerfilService.cargarDatos(1)
+    /* this._menuPerfilService.cargarDatos(1)
         .subscribe((menus_datos:any)=>{
            this.menu=Object.values(menus_datos[0].mensaje);
            //this._settingService.crearMenuLocalStorage(this.menu);
            console.log("MENU "+JSON.stringify(this.menu))
-        });
+        }); */
     
   }
 

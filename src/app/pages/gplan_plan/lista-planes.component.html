@@ -1,0 +1,105 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <!-- Nav tabs -->
+                    <div *ngIf="cargando_tabla ">
+                        <app-loading1></app-loading1>
+                    </div>
+
+
+
+                    <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                        <div class="col-12 ">
+                            <div class="card ">
+                                <div class="card-body ">
+                                    <div class="col-12 ">
+                                        <div class="row">
+                                            <div class="col-md-12 col-lg-12 col-xlg-12">
+                                                <div class="card">
+                                                    <div class="box bg-warning text-center">
+                                                        <h2 class="font-light text-white">{{ gad.nombre }}</h2>
+                                                        <h6 class="text-white">{{ gad.nombre_tipgad }}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="col-md-12 ">
+                                                <div class="form-group row ">
+                                                    <h2>Lista</h2>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <input type="text " class="form-control col-md-9" placeholder="Buscar.... " name="search " [(ngModel)]="filter" DirectivaMayusculas>
+                                                    <div class="col-md-3">
+                                                        <button type="button" class="btn btn-info col-md-10" [routerLink]="['/plan',0,gad.pk_gad]">
+                                          <i class="fa fa-plus"></i> Nuevo
+                                          </button>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row ">
+
+                                                    <div class="table-responsive pointer col-md-12 ">
+                                                        <table class="table color-bordered-table info-bordered-table ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col"><small><strong>ODS</strong></small></th>
+                                                                    <th scope="col"><small><strong>Eje PNTV</strong></small></th>
+                                                                    <th scope="col"><small><strong>Objetivo</strong></small></th>
+                                                                    <th scope="col"><small><strong>Obj. Estratégico </strong></small></th>
+                                                                    <th scope="col"><small><strong>Año Base </strong></small></th>
+                                                                    <th scope="col"><small><strong>Año Meta </strong></small></th>
+                                                                    <th scope="col"><small><strong>Acción</strong></small></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let plan of listaPlanes | filter:filter | paginate: { itemsPerPage: 30, currentPage: p }; let i=i ndex ">
+                                                                    <td scope="row" data-label="ODS"><small>{{plan.nombre_ods}}</small></td>
+                                                                    <td data-label="Eje PNTV"><small>{{plan.nombre_eje}}</small></td>
+                                                                    <td data-label="Objetivo"><small>{{plan.nombre_obj}}</small></td>
+                                                                    <td data-label="Obj. Estratégico"><small>{{plan.nombre_objestra}}</small></td>
+                                                                    <td data-label="Año Base">{{plan.anio_base_plan}}</td>
+                                                                    <td data-label="Año Meta">{{plan.anio_meta_plan}}</td>
+                                                                    <td data-label="Acción">
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="fa fa-file-o"></i>
+                                                                        </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <a class="dropdown-item pointer" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Editar</a>
+                                                                                <a class="dropdown-item pointer" (click)="eliminar(empresa)">Eliminar</a>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot></tfoot>
+                                                        </table>
+
+                                                        <br>
+
+                                                        <div class="col-12 ">
+                                                            <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

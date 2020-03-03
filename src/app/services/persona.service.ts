@@ -77,7 +77,7 @@ export class PersonaService {
         }
         return dato;
       }))
-      .pipe(catchError( err =>{
+      .pipe(catchError( err =>{ 
         swal.fire(
           `Error no controlado ${this.tabla}`,
           'Revisar Detalle en consola',

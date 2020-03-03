@@ -1,0 +1,152 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <!-- Nav tabs -->
+                    <div *ngIf="cargando_tabla ">
+                        <app-loading1></app-loading1>
+                    </div>
+
+
+
+                    <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                        <div class="col-12 ">
+                            <div class="card ">
+                                <div class="card-body ">
+                                    <div class="col-12 ">
+                                        <div class="row ">
+                                            <div class="col-md-12 ">
+
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control col-md-12" placeholder="Buscar...." name="search" [(ngModel)]="filter" DirectivaMayusculas>
+                                                            <span class="input-group-btn pointer">
+                                                      <button type="button" class="btn btn-info" (click)="open(modal,'{}')">
+                                                          <i class="fa fa-plus"></i>   Nuevo
+                                                      </button>
+                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+
+
+                                                <div class="form-group row ">
+                                                    <div class="table-responsive pointer col-md-12 ">
+                                                        <table class="table color-bordered-table primary-bordered-table ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col" width="40%">Nombre</th>
+                                                                    <th scope="col">Activo</th>
+                                                                    <th scope="col">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let componente of listaComponentes | filter:filter | paginate: { itemsPerPage: 30, currentPage: p }; let i=i ndex ">
+                                                                    <td scope="row" data-label="#">{{componente.pk_compo}}</td>
+                                                                    <td scope="row" data-label="Nombre">{{componente.nombre_compo}}</td>
+
+                                                                    <td data-label="Activo">
+                                                                        <button *ngIf="componente.activo_compo === true" type="button" class="btn btn-sm btn-success btn-circle"><i class="fa fa-check"></i> </button>
+                                                                        <button *ngIf="componente.activo_compo === false" type="button" class="btn btn-sm btn-danger btn-circle"><i class="fa fa-times"></i> </button>
+                                                                    </td>
+                                                                    <td data-label="Acción">
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-file-o"></i>
+                                                        </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <a class="dropdown-item" (click)="open(modal,componente)">Editar</a>
+                                                                                <a class="dropdown-item" (click)="eliminar(componente)">Eliminar</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot></tfoot>
+                                                        </table>
+
+                                                        <br>
+
+                                                        <div class="col-12 ">
+                                                            <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+
+    <form #formulario="ngForm" ngNativeValidate (ngSubmit)="guardar()">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Registro Componente</h4>
+
+        </div>
+        <div class="modal-body">
+
+            <!-- Nav tabs -->
+            <div *ngIf="cargando_modal ">
+                <app-loading2></app-loading2>
+            </div>
+
+            <div class="row" *ngIf="!cargando_modal ">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Nombre</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="componenteTarget.nombre_compo" name="nombre_compo" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="message-text" class="control-label"><b>* Activo</b></label>
+                                    <div class="switch">
+                                        <label>NO
+                                            <input type="checkbox" [(ngModel)]="componenteTarget.activo_compo" name="activo_compo" checked><span class="lever switch-col-red"></span>SI</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><b>Descripcion</b></label>
+                                    <textarea class="form-control" [(ngModel)]="componenteTarget.descripcion" name="descripcion" rows="6"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="c('Save click')">Cancelar</button>
+            <button type="submit" class="btn btn-success" [disabled]="formulario.invalid">Guardar</button>
+        </div>
+    </form>
+</ng-template>

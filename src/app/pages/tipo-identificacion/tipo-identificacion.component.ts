@@ -97,6 +97,5 @@ export class TipoIdentificacionComponent implements OnInit {
               });
         }
       })
-      //alert(JSON.stringify(row));
     }
 }

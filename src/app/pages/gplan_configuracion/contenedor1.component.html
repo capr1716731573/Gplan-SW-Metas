@@ -1,0 +1,34 @@
+<div class="row animated fadeIn">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-b-0">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-xlg-12">
+                        <div class="card">
+                            <div class="box bg-info">
+                                <h4 class="text-white"><strong>Información</strong></h4>
+                                <h5 class="text-white">La presente configuración corresponde a datos e información referente a la configuración que tienen los GAD, tipos, competencias de cada uno y componentes</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs customtab" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" (click)="asignarComponenteDinamico('tipogad')" data-toggle="tab" href="#tipoGad" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Tipo GADs</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" (click)="asignarComponenteDinamico('competencias')" data-toggle="tab" href="#tipoGad" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Competencias</span></a> </li>
+                <li class="nav-item"> <a class="nav-link" (click)="asignarComponenteDinamico('componentes')" data-toggle="tab" href="#componentes" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Componentes</span></a> </li>
+
+
+            </ul>
+
+            <div class="tab-content">
+                <!-- PROCESOS -->
+                <div class="tab-pane p-20 active" id="tipoGad" role="tabpanel">
+                    <div #container></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

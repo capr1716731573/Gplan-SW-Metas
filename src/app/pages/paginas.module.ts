@@ -51,11 +51,27 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MenuComponent } from './menu/menu.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { AgendaComponent } from './agenda/agenda.component';
+import { PlanComponent } from './gplan_plan/plan.component';
+import { ListaPlanesComponent } from './gplan_plan/lista-planes.component';
+import { MetasComponent } from './gplan_plan/metas.component';
+import { NumeroPrecisionDirective } from '../directivas/numeros/numero-precision.directive';
+import { TipoGadComponent } from './gplan_configuracion/tipo-gad.component';
+import { Contenedor1Component } from './gplan_configuracion/contenedor1.component';
+import { CompetenciasComponent } from './gplan_configuracion/competencias.component';
+import { ComponentesComponent } from './gplan_configuracion/componentes.component';
+import { GadComponent } from './gplan_configuracion/gad.component';
+import { Contenedor2Component } from './gplan_configuracion/contenedor2.component';
+import { OdsComponent } from './gplan_configuracion/ods.component';
+import { EjeComponent } from './gplan_configuracion/eje.component';
+import { ObjetivoComponent } from './gplan_configuracion/objetivo.component';
+import { OdsObjetivoComponent } from './gplan_configuracion/ods-objetivo.component';
+import { ObjetivoEstrategicoComponent } from './gplan_configuracion/objetivo-estrategico.component';
 
 
 @NgModule({
     declarations:[
         NumerosDirective,
+        NumeroPrecisionDirective,
         MayusculasDirective,
         PaginasComponent,
         DashboardComponent,
@@ -83,7 +99,21 @@ import { AgendaComponent } from './agenda/agenda.component';
         UsuariosComponent,
         UsuarioComponent,
         MenuComponent,
-        AgendaComponent
+        AgendaComponent,
+        PlanComponent,
+        ListaPlanesComponent,
+        MetasComponent,
+        TipoGadComponent,
+        Contenedor1Component,
+        CompetenciasComponent,
+        ComponentesComponent,
+        GadComponent,
+        Contenedor2Component,
+        OdsComponent,
+        EjeComponent,
+        ObjetivoComponent,
+        OdsObjetivoComponent,
+        ObjetivoEstrategicoComponent
     ],
     exports:[
         DashboardComponent,
@@ -103,6 +133,17 @@ import { AgendaComponent } from './agenda/agenda.component';
         BrowserAnimationsModule,
         ToastrModule.forRoot(),
         NgbModule
+    ],
+    //dentro de los entryComponents se colocan los componentes que van a ser dinamicos o que se van a cargar dinamicamente
+    entryComponents:[
+        MetasComponent,
+        TipoGadComponent,
+        CompetenciasComponent,
+        ComponentesComponent,
+        OdsComponent,
+        EjeComponent,
+        ObjetivoComponent,
+        OdsObjetivoComponent
     ]
 })
 

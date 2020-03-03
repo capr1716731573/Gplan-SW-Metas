@@ -131,36 +131,8 @@ export class UsuarioComponent implements OnInit {
         });
   }
 
-cargarEspecialidades(){
-    this._especialidadService.cargarDatos()
-        .subscribe((datos:any)=>{
-        this.listaEspecialidad=Object.values(datos);
-        });
-    }
-    
-    cargarEmpresas(){
-    this._empresaService.cargarDatos()
-        .subscribe((datos:any)=>{
-            this.listaEmpresa=Object.values(datos);
-        });
-    }
-  cargarListaEmpresaUsuarios(pk_user:number){
-    this.cargando_espec_user=true;
-    this._empresaUsuarios.cargarDatos(pk_user)
-        .subscribe((datos:any)=>{
-            this.listaEmpresaUsuarios=Object.values(datos);
-            this.cargando_espec_user=false;
-        });
-  }
 
-  cargarListaEspecialidadUsuarios(pk_user:number){
-    this.cargando_espec_user=true;
-    this._especialidadUsuarios.cargarDatos(pk_user)
-        .subscribe((datos:any)=>{
-          this.listaEspecialidadUsuarios=Object.values(datos);
-          this.cargando_espec_user=false;
-        });
-  }
+
 
   guardar(){
     swal.fire({
@@ -214,6 +186,8 @@ cargarEspecialidades(){
           }else{
             accionUsuario='U';
             accionPersona='U';
+            this.usuario.audit_modificacion=this._settingsService.getInfoUser();
+            this.persona.audit_modificacion=this._settingsService.getInfoUser();
             this.accionGuardar(accionPersona,accionUsuario);
           }
             
@@ -289,10 +263,7 @@ cargarEspecialidades(){
       }
       this.cargarPersona(this.usuario.pk_person);
       this.cargarPerfiles();
-      this.cargarListaEspecialidadUsuarios(this.usuario.pk_user);
-      this.cargarEspecialidades();
-      this.cargarListaEmpresaUsuarios(this.usuario.pk_user);
-      this.cargarEmpresas();
+     
     });
   }
 
@@ -381,7 +352,6 @@ cargarEspecialidades(){
 
   //FUNCIONES DEL MODAL ESPECIALIDADES
   cancelarModalEspecilidades(){
-    this.cargarListaEspecialidadUsuarios(this.usuario.pk_user);
     $('#modalEspeMed').modal('hide');
   }
 
@@ -397,7 +367,6 @@ cargarEspecialidades(){
     this.especialidadMedicoTarget.pk_user=this.usuario.pk_user;
     this._especialidadUsuarios.crud(this.accionModalEspecialidad,this.especialidadMedicoTarget)
     .subscribe((resp:any) => {
-     this.cargarListaEspecialidadUsuarios(this.usuario.pk_user);
       //swal.fire(`Registro ${accion}!!`)
       swal.fire({
         //position: 'top',
@@ -445,7 +414,6 @@ cargarEspecialidades(){
       if (result.value) {
         this._especialidadUsuarios.crud('D',row)
             .subscribe((resp:any) => {
-              this.cargarListaEspecialidadUsuarios(this.usuario.pk_user)
               swal.fire({
                 //position: 'top',
                 type: 'success',
@@ -468,7 +436,6 @@ cargarEspecialidades(){
 
   //FUNCIONES DEL MODAL EMPRESAS
   cancelarModalEmpresas(){
-    this.cargarListaEmpresaUsuarios(this.usuario.pk_user);
     $('#modalEmpreMed').modal('hide');
   }
 
@@ -482,7 +449,6 @@ cargarEspecialidades(){
     this.empresaMedicoTarget.pk_user=this.usuario.pk_user;
     this._empresaUsuarios.crud(this.accionModalEspecialidad,this.empresaMedicoTarget)
         .subscribe((resp:any) => {
-             this.cargarListaEmpresaUsuarios(this.usuario.pk_user);
               swal.fire({
                     type: 'success',
                     title: `Registro ${accion}!!`,
@@ -523,7 +489,6 @@ cargarEspecialidades(){
       if (result.value) {
         this._empresaUsuarios.crud('D',row)
             .subscribe((resp:any) => {
-              this.cargarListaEmpresaUsuarios(this.usuario.pk_user)
               swal.fire({
                 type: 'success',
                 title: `Registro Eliminado!!`,

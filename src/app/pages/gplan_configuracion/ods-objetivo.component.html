@@ -1,0 +1,68 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <!-- Nav tabs -->
+                    <div *ngIf="cargando_tabla ">
+                        <app-loading1></app-loading1>
+                    </div>
+
+                    <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                        <div class="col-12 ">
+                            <div class="card ">
+                                <div class="card-body ">
+                                    <div class="col-12 ">
+
+                                        <div class="row ">
+
+                                            <div class="col-lg-6">
+
+                                                <div class="form-group">
+                                                    <label class="control-label"><strong>Seleccione ODS</strong></label>
+                                                    <ng-select [(ngModel)]="pk_ods" (change)="cargarObjetivosPNTV()" [clearable]="false" name="pk_ods" bindValue="pk_ods" placeholder="Seleccione.." bindLabel="nombre_ods" [items]="listaOds" required DirectivaMayusculas>
+                                                        <ng-template ng-option-tmp let-item="item">
+                                                            <b>{{item.numeral_ods}} .-</b> {{item.nombre_ods}}
+
+                                                        </ng-template>
+                                                    </ng-select>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="control-label"><strong>Seleccione Eje</strong></label>
+                                                    <ng-select [(ngModel)]="pk_eje" (change)="cargarObjetivosPNTV()" [clearable]="false" name="pk_eje" bindValue="pk_eje" placeholder="Seleccione.." bindLabel="nombre_eje" [items]="listaEje" required DirectivaMayusculas>
+                                                        <ng-template ng-option-tmp let-item="item">
+                                                            <b>{{item.numeral_eje}} .-</b>{{item.nombre_eje}}
+
+                                                        </ng-template>
+                                                    </ng-select>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="control-label"><strong>Objetivos Enlazados</strong></label>
+                                                <div style="margin:5px 0px">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item" *ngFor="let item of listaObjetivosPNTV | filter:filter;">
+                                                            <input type="checkbox" name="item_{{item.pk_obj}}" [id]="item.pk_obj" [(ngModel)]="item.registro" class="chk-col-green" [attr.checked]="item.registro ? 'checked' : null" (click)="guardar(item)" />
+                                                            <label [for]="item.pk_obj"><small><b>{{item.numeral_obj}} .-</b>{{ item.nombre_obj }}</small></label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

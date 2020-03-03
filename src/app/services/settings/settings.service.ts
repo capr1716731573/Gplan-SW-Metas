@@ -45,6 +45,10 @@ export class SettingsService {
       //this.myMenu=JSON.parse(localStorage.getItem('menuSalud'));
       this.myMenu=this.myMenu[0].mensaje;
      }
+      
+      
+      
+     
      
    }
 
@@ -143,10 +147,15 @@ export class SettingsService {
     }
     //localStorage.setItem('menuSalud',JSON.stringify(menu));
     localStorage.setItem('menuSalud',CryptoJS.AES.encrypt(JSON.stringify(menu), this.claveCryptoJS));
-
-    this.myMenu=menu;
-    this.myMenu=this.myMenu[0].mensaje;
-    
+    console.log(JSON.stringify(menu));
+    if(menu.length != 0){
+      this.myMenu=menu;
+      this.myMenu=this.myMenu[0].mensaje;
+      
+    }else{
+      this.myMenu={};
+    }
+   
 
     /* //cryptoJs
     var textoEncriptado = CryptoJS.AES.encrypt(JSON.stringify(menu), this.claveCryptoJS);

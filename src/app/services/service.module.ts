@@ -21,6 +21,7 @@ import { EspecialidadUserService } from './especialidad-user.service';
 import { TipoVacunasService } from './tipo-vacunas.service';
 import { ExamenAuxiliarDiagnosticoService } from './examen-auxiliar-diagnostico.service';
 import { AgendaService } from './agenda.service';
+import { GadService } from './gplan_metas/gad.service';
 
 @NgModule({
   imports: [
@@ -50,7 +51,9 @@ import { AgendaService } from './agenda.service';
     TipoExamenService,
     TipoVacunasService,
     ExamenAuxiliarDiagnosticoService,
-    AgendaService
+    AgendaService,
+    //GPLAN SERVICES
+    GadService,
   ],
   declarations: []
 })

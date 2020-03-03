@@ -1,0 +1,90 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <!-- Nav tabs -->
+                    <div *ngIf="cargando_tabla ">
+                        <app-loading1></app-loading1>
+                    </div>
+
+
+
+                    <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                        <div class="col-12 ">
+                            <div class="card ">
+                                <div class="card-body ">
+                                    <div class="col-12 ">
+                                        <div class="row ">
+                                            <div class="col-md-12 ">
+                                                <form #formulario="ngForm" ngNativeValidate (ngSubmit)="guardar()">
+
+                                                    <div class="modal-body">
+
+                                                        <!-- Nav tabs -->
+                                                        <div *ngIf="cargando_modal ">
+                                                            <app-loading2></app-loading2>
+                                                        </div>
+
+                                                        <div class="row" *ngIf="!cargando_modal ">
+                                                            <div class="col-lg-12 col-md-12">
+                                                                <div class="card">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label"><b>* Nombre</b></label>
+                                                                                <input type="text" class="form-control" [(ngModel)]="gadTarget.nombre" name="nombre" required>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label"><strong>* Tipo GAD</strong></label>
+                                                                                <ng-select [(ngModel)]="gadTarget.fk_tipgad" [clearable]="false" name="pk_tipgad" bindValue="pk_tipgad" placeholder="Seleccione.." bindLabel="nombre_tipgad" [items]="listaTipoGad" required DirectivaMayusculas>
+                                                                                    <ng-template ng-option-tmp let-item="item">
+                                                                                        {{item.nombre_tipgad}}
+
+                                                                                    </ng-template>
+                                                                                </ng-select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label for="message-text" class="control-label"><b>* Activo</b></label>
+                                                                                <div class="switch">
+                                                                                    <label>NO
+                                                                                  <input type="checkbox" [(ngModel)]="gadTarget.activo_gad" name="activo_gad" checked><span class="lever switch-col-red"></span>SI</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" (click)="c('Save click')">Cancelar</button>
+                                                        <button type="submit" class="btn btn-success" [disabled]="formulario.invalid">Guardar</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

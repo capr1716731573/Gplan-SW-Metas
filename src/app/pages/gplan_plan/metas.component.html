@@ -1,0 +1,229 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <!-- aqui va lo de los hitos -->
+                    <button *ngIf="listaMetas.length <= 0" type="button" (click)="generarMetas()" class="btn waves-effect waves-light btn-primary">
+                            <i class ="fa fa-spinner"></i> Crear Metas
+                    </button>
+                    <div *ngIf="listaMetas.length > 0">
+                        <!-- Nav tabs -->
+                        <div *ngIf="cargando_tabla ">
+                            <app-loading2></app-loading2>
+                        </div>
+                        <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                            <div class="col-12 ">
+                                <div class="card ">
+                                    <div class="card-body ">
+                                        <!-- ============================================================== -->
+                                        <!-- Semaforizacion -->
+                                        <!-- ============================================================== -->
+                                        <h3 class="text-themecolor">Semaforización de Cumplimiento de Metas</h3>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: gray;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Extemporánea</h6>
+                                                                <h5 class="m-t-0 text-white">0%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: red;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Incumplida</h6>
+                                                                <h5 class="m-t-0 text-white">0.1% a 69%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="card" style="background-color:rgb(247, 211, 9);">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Parcialmente Cumplida</h6>
+                                                                <h5 class="m-t-0 text-white">70% al 84.9%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: green;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Cumplida</h6>
+                                                                <h5 class="m-t-0 text-white">85% al 100%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 ">
+
+                                            <div class="form-group row ">
+                                                <div class="table-responsive pointer col-md-12 ">
+                                                    <table class="table color-bordered-table info-bordered-table ">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th scope="col"><small><strong>Año</strong></small></th>
+                                                                <th scope="col"><small><strong>Planificado</strong></small></th>
+                                                                <th scope="col"><small><strong>Ejecutado</strong></small></th>
+                                                                <th scope="col"><small><strong>%</strong></small></th>
+                                                                <th scope="col"><small><strong>Acción</strong></small></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let meta of listaMetas | filter:filter | paginate: { itemsPerPage: 10, currentPage: p }; let i=i ndex ">
+                                                                <td data-label="Año" data-label="Año">{{ meta.anio_meta }}</td>
+                                                                <td data-label="Planificado">{{ meta.planificado_meta }}</td>
+                                                                <td data-label="Ejecutado">{{ meta.ejecutado_meta }}</td>
+                                                                <td data-label="%" [ngStyle]="{'background-color': semaforizacion(meta.porcentaje_cumplimiento_meta).bg, 'color':semaforizacion(meta.porcentaje_cumplimiento_meta).texto}"><strong>{{ meta.porcentaje_cumplimiento_meta }} %</strong></td>
+
+                                                                <td data-label="Acción">
+                                                                    <div class="btn-group">
+                                                                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="fa fa-file-o"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu">
+                                                                            <a class="dropdown-item" (click)="open(modal,meta)">Editar</a>
+                                                                            <a class="dropdown-item" (click)="eliminar(meta)">Eliminar</a>
+                                                                            <div class="dropdown-divider"></div>
+                                                                            <a class="dropdown-item" (click)="mostrarModal(capacitacion)">Auditoría Meta</a>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot></tfoot>
+                                                    </table>
+
+                                                    <br>
+
+                                                    <div class="col-12 ">
+                                                        <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- MODAL -->
+<ng-template #modal let-c="close" let-d="dismiss">
+
+    <form #formulario="ngForm" ngNativeValidate (ngSubmit)="guardar()">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Registro Meta {{ planTarget.pk_plan }}</h4>
+
+        </div>
+        <div class="modal-body">
+
+            <!-- Nav tabs -->
+            <div *ngIf="cargando_modal ">
+                <app-loading2></app-loading2>
+            </div>
+
+            <div class="row" *ngIf="!cargando_modal ">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="bg-theme stats-bar">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="p-20 active text-center">
+                                        <h6 class="text-white">Indicador</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ planTarget.indicador_plan }}</strong></h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 text-center">
+                                    <div class="p-20">
+                                        <h6 class="text-white">Línea Base</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ planTarget.linea_base_plan }}</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 text-center">
+                                    <div class="p-20">
+                                        <h6 class="text-white">Año</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ metaTarget.anio_meta }}</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 text-center">
+                                    <div class="p-20">
+                                        <h6 class="text-white">Planificado</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ metaTarget.planificado_meta }}</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Ejecutado</b>&nbsp;&nbsp; </label>
+                                    <a class="mytooltip tooltip-effect-8"><i class="fa fa-info-circle"></i>
+                                        <span class="mytooltip tooltip-effect-1">
+                                                <span class="tooltip-content clearfix">
+                                                    <img src="assets/images/tooltip/Euclid.png" alt="euclid" /><span class="tooltip-text">Presione la tecla ENTER para calcular el porcentaje.</span> </span>
+                                            </span>
+                                    </a>
+
+                                    <input type="text" class="form-control" (blur)="calcularPorcentaje(metaTarget.ejecutado_meta)" (keyup.enter)=" calcularPorcentaje(metaTarget.ejecutado_meta)" [(ngModel)]="metaTarget.ejecutado_meta" name="ejecutado_meta" placeholder="0.00" DirectivaNumeros2
+                                        decimals="2" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-group text-center ">
+                                    <label class="control-label "><b>* Porcentaje</b></label>
+                                    <h2><span [ngStyle]="{ 'background-color': semaforizacion(metaTarget.porcentaje_cumplimiento_meta).bg, 'color':semaforizacion(metaTarget.porcentaje_cumplimiento_meta).texto} "> {{ metaTarget.porcentaje_cumplimiento_meta }} % </span></h2>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer ">
+            <button type="button " class="btn btn-danger " (click)="c( 'Save click') ">Cancelar</button>
+            <button type="submit " class="btn btn-success " [disabled]="formulario.invalid ">Guardar</button>
+        </div>
+    </form>
+</ng-template>
