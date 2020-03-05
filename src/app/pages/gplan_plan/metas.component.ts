@@ -195,23 +195,31 @@ export class MetasComponent implements OnInit {
   }
 
   calcularPorcentaje(valor:number){
-    if(valor != null && valor != 0 && valor <= this.metaTarget.planificado_meta && valor >= this.planTarget.linea_base_plan ){
+
+    
       if(this.planTarget.tipo_va_plan === 'C'){
-        this.metaTarget.porcentaje_cumplimiento_meta=this.metaTarget.ejecutado_meta/this.metaTarget.planificado_meta;
+        this.metaTarget.porcentaje_cumplimiento_meta=(this.metaTarget.ejecutado_meta/this.metaTarget.planificado_meta);
       }else{
         this.metaTarget.porcentaje_cumplimiento_meta=(this.planTarget.linea_base_plan - this.metaTarget.ejecutado_meta)/(this.planTarget.linea_base_plan - this.metaTarget.planificado_meta);
       }
-      this.metaTarget.porcentaje_cumplimiento_meta=Number(Math.round(this.metaTarget.porcentaje_cumplimiento_meta * 100).toFixed(2));  
-    }else{
+      this.metaTarget.porcentaje_cumplimiento_meta=(this.metaTarget.porcentaje_cumplimiento_meta * 100).toFixed(2);  
+      
+      if(this.metaTarget.porcentaje_cumplimiento_meta > 100){
+        this.metaTarget.porcentaje_cumplimiento_meta=100;
+      }
+      if(this.metaTarget.ejecutado_meta === null || this.metaTarget.ejecutado_meta === 0){
+        this.metaTarget.porcentaje_cumplimiento_meta=null;
+      }
+    /* }else{
       swal.fire({
         type: 'error',
-        title: `El valor ingresado debe estar entre ${this.planTarget.linea_base_plan}(LB) y ${this.metaTarget.planificado_meta}(MF)`,
+        title: `El valor ingresado debe ser diferente a 0`,
         showConfirmButton: false,
         timer: 3000
       });
       this.metaTarget.ejecutado_meta=null;
       this.metaTarget.porcentaje_cumplimiento_meta=null;
-    }
+    } */
   }
 
   

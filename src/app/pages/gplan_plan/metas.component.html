@@ -202,8 +202,7 @@
                                             </span>
                                     </a>
 
-                                    <input type="text" class="form-control" (blur)="calcularPorcentaje(metaTarget.ejecutado_meta)" (keyup.enter)=" calcularPorcentaje(metaTarget.ejecutado_meta)" [(ngModel)]="metaTarget.ejecutado_meta" name="ejecutado_meta" placeholder="0.00" DirectivaNumeros2
-                                        decimals="2" required>
+                                    <input type="text" class="form-control" (keyup)="calcularPorcentaje(metaTarget.ejecutado_meta)" [(ngModel)]="metaTarget.ejecutado_meta" name="ejecutado_meta" placeholder="0.00" DirectivaNumeros2 decimals="2" required>
                                 </div>
                             </div>
 
@@ -216,6 +215,11 @@
 
 
                         </div>
+
+                        <code>
+                            {{metaTarget.ejecutado_meta}} - 
+                            {{metaTarget.porcentaje_cumplimiento_meta}}
+                        </code>
 
                     </div>
                 </div>

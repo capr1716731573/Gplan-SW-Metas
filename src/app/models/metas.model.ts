@@ -41,7 +41,7 @@ export interface MetaModel{
     audit_creacion:any,
     audit_modificacion:any,
     anio_meta:number,
-    porcentaje_cumplimiento_meta:number
+    porcentaje_cumplimiento_meta:any
 }
 
 export interface TipoGadModel{
