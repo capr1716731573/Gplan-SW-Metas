@@ -26,13 +26,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     init_plugins();
-    VANTA.CELLS({
+    //se activa cuando utilice fondo de pantala con js
+    /* VANTA.CELLS({
       el: "#fondo",
       color1: 0x4dff,
       color2: 0x35f2ef,
       size: 2.30,
       speed: 3.00
-  })
+  }) */
   }
 
   ingresar(){

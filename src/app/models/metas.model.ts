@@ -41,7 +41,27 @@ export interface MetaModel{
     audit_creacion:any,
     audit_modificacion:any,
     anio_meta:number,
-    porcentaje_cumplimiento_meta:any
+    porcentaje_cumplimiento_meta:any,
+    temporalidad_evaluacion_meta:string,
+    planificado_presup_meta:number,
+    ejecutado_presup_meta:number,
+    observacion_meta:String,
+    urldoc_meta:String
+}
+
+export interface SubmetaModel{
+    pk_submeta:number,
+    fk_meta:number,
+    desde_submeta:any,
+    hasta_submeta:any,
+    planificado_submeta:number,
+    ejecutado_submeta:number,
+    presup_plani_submeta:number,
+    presup_ejec_submeta:number,
+    presup_codif_submeta:number,
+    tiempo_submeta:number,
+    audit_creacion:any,
+    audit_modificacion:any
 }
 
 export interface TipoGadModel{

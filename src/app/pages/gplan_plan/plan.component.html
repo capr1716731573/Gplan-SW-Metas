@@ -210,7 +210,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label"><b>* Presupuesto</b></label>
-                                    <input type="text" class="form-control" [(ngModel)]="planTarget.presupuesto_plan" name="presupuesto_plan" placeholder="$ 0.00" DirectivaNumeros2 decimals="2">
+                                    <input type="text" class="form-control" [(ngModel)]="planTarget.presupuesto_plan" name="presupuesto_plan" required placeholder="$ 0.00" DirectivaNumeros2 decimals="2">
                                 </div>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                             <div class="text-left">
                                 <div class="button-group">
 
-                                    <button type="submit " class="btn waves-effect waves-light btn-success " [disabled]="formulario.invalid">
+                                    <button *ngIf="planTarget.activo_plan" type="submit " class="btn waves-effect waves-light btn-success " [disabled]="formulario.invalid">
                                     <i class="fa fa-check"></i> Guardar
                                 </button>
 

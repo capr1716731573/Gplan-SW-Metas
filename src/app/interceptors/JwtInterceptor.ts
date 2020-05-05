@@ -54,9 +54,11 @@ export class JwtInterceptor implements HttpInterceptor {
         //Obtengo el token del servicio settings service
         this.token=this._settingService.myToken;
         let tokenValido=this._settingService.validarExpiracionToken(this.token);
+        
         // add authorization header with jwt token if available
         //let currentUser = this.authenticationService.currentUserValue;
         if (tokenValido) {
+            
            
             request = request.clone({
                 setHeaders: {
@@ -69,14 +71,17 @@ export class JwtInterceptor implements HttpInterceptor {
             //console.log('DESDE JWYINTERCEPTOR '+request.headers.get('token'));
         }
         else{
-            swal.fire(
-                'Su sesión a expirado',
-                'Ingrese sus credenciales',
-                'info'
-              )
-              console.log('Peticion HTTP Rechazada, Token ha expirado!!.');
-              //aqui es momentaneo esta redireccion, lo optimo es enviar al login sgh.hgsd.gob.ec
-              this.router.navigate(['/login']);
+            if(this.router.url !=  "/login"){
+
+                swal.fire(
+                    'Su sesión a expirado',
+                    'Ingrese sus credenciales',
+                    'info'
+                  )
+                  console.log('Peticion HTTP Rechazada, Token ha expirado!!.');
+                  //aqui es momentaneo esta redireccion, lo optimo es enviar al login sgh.hgsd.gob.ec
+                  this.router.navigate(['/login']);
+            }
         }
 
         return next.handle(request);

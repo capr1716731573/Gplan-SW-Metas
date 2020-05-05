@@ -1,12 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlanService } from '../../services/gplan_metas/plan.service';
 import { SettingsService } from '../../services/settings/settings.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import swal from 'sweetalert2';
+import { PlanService } from '../../services/gplan_metas/plan.service';
 import { MetasService } from '../../services/gplan_metas/metas.service';
 import { PlanModel, MetaModel } from '../../models/metas.model';
+import { UploadService } from '../../services/gplan_metas/upload.service';
 @Component({
   selector: 'app-metas',
   templateUrl: './metas.component.html',
@@ -18,6 +19,7 @@ export class MetasComponent implements OnInit {
   cargando_tabla:boolean=true;
   listaMetas:any[]=[];
   accion:string='nuevo';
+  documento:File;
 
   //MENSAJES TOAST
   toast = swal.mixin({
@@ -45,7 +47,12 @@ export class MetasComponent implements OnInit {
     audit_creacion:null,
     audit_modificacion:null,
     anio_meta:null,
-    porcentaje_cumplimiento_meta:null
+    porcentaje_cumplimiento_meta:null,
+    temporalidad_evaluacion_meta:null,
+    planificado_presup_meta:null,
+    ejecutado_presup_meta:null,
+    observacion_meta:null,
+    urldoc_meta:null
   }
 
 
@@ -81,7 +88,8 @@ export class MetasComponent implements OnInit {
     public router:Router,
     public activatedRoute:ActivatedRoute,
     private modalService: NgbModal,
-    private configuracionModal: NgbModalConfig
+    private configuracionModal: NgbModalConfig,
+    private _uploadService: UploadService
   ) { 
     //Configuracion para abrir el modal con Ng-Bootstrap
     this.configuracionModal.backdrop = 'static';
@@ -175,12 +183,18 @@ export class MetasComponent implements OnInit {
         audit_creacion:null,
         audit_modificacion:null,
         anio_meta:null,
-        porcentaje_cumplimiento_meta:15
+        porcentaje_cumplimiento_meta:null,
+        temporalidad_evaluacion_meta:null,
+        planificado_presup_meta:null,
+        ejecutado_presup_meta:null,
+        observacion_meta:null,
+        urldoc_meta:null
+        
       }
   
     }else{
       this.accion='actualizar';
-      this.metaTarget={
+      this.metaTarget={ 
         pk_meta:meta.pk_meta,
         fk_plan:meta.fk_plan,
         ejecutado_meta:meta.ejecutado_meta,
@@ -188,8 +202,14 @@ export class MetasComponent implements OnInit {
         audit_creacion:meta.audit_creacion,
         audit_modificacion:meta.audit_modificacion,
         anio_meta:meta.anio_meta,
-        porcentaje_cumplimiento_meta:meta.porcentaje_cumplimiento_meta
+        porcentaje_cumplimiento_meta:meta.porcentaje_cumplimiento_meta,
+        temporalidad_evaluacion_meta:meta.temporalidad_evaluacion_meta,
+        planificado_presup_meta:meta.planificado_presup_meta,
+        ejecutado_presup_meta:meta.ejecutado_presup_meta,
+        observacion_meta:meta.observacion_meta,
+        urldoc_meta:meta.urldoc_meta
       }
+     
   
     }
   }
@@ -210,16 +230,8 @@ export class MetasComponent implements OnInit {
       if(this.metaTarget.ejecutado_meta === null || this.metaTarget.ejecutado_meta === 0){
         this.metaTarget.porcentaje_cumplimiento_meta=null;
       }
-    /* }else{
-      swal.fire({
-        type: 'error',
-        title: `El valor ingresado debe ser diferente a 0`,
-        showConfirmButton: false,
-        timer: 3000
-      });
-      this.metaTarget.ejecutado_meta=null;
-      this.metaTarget.porcentaje_cumplimiento_meta=null;
-    } */
+    
+     
   }
 
   
@@ -228,6 +240,45 @@ export class MetasComponent implements OnInit {
     this.cargando_modal=false;    
     this.modalService.open(content, { size: 'lg' });   
    }
+
+   confirmarGuardar(){
+
+    swal.fire({
+      title: 'Confirmación',
+      text: "Desea registrar información o documento adjunto de la meta ?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        if(this.documento ){
+          this._uploadService.subirArchivo(this.metaTarget.pk_meta,this.documento)
+              .then((resp:any)=>{
+                  console.log(JSON.stringify(resp));
+                  if(resp.hasOwnProperty('ok')){
+                    if(resp.ok === true){
+                      this.metaTarget.urldoc_meta=resp.nombre_archivo
+                      this.guardar();
+                    }
+                  }
+
+              })
+              .catch( (err:any) => {
+                console.log('Error en la carga...');
+                /* this.cargando=false; */
+              })      
+        }else{
+
+          this.guardar();
+        }
+        
+      }
+    });
+  }
+
 
    guardar(){
     let accionLabel;
@@ -263,6 +314,16 @@ export class MetasComponent implements OnInit {
   
   }
 
+  upload(file:File){
+    this.documento=null;
+    this.documento=file[0];
+    this.toast.fire({
+      type: 'warning',
+      title: 'Usted acaba de seleccionar el archivo a cargar, previo a esta acción debio asegurarse que sea el correcto.',
+      timer: 6000
+      
+    });
+  }
 
 
   

@@ -54,7 +54,7 @@ export class MetasService {
 
   
   cargarDatosID(id:number):Observable<any>{
-    let url_ws=`${this.url}/${id}`;
+    let url_ws=`${this.url}/ID/${id}`;
     return this.http.get(url_ws)
     .pipe(map((resp:any) =>{
         let dato={};

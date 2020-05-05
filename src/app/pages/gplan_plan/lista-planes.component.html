@@ -54,6 +54,7 @@
                                                                     <th scope="col"><small><strong>Obj. Estratégico </strong></small></th>
                                                                     <th scope="col"><small><strong>Año Base </strong></small></th>
                                                                     <th scope="col"><small><strong>Año Meta </strong></small></th>
+                                                                    <th scope="col"><small><strong>Estado </strong></small></th>
                                                                     <th scope="col"><small><strong>Acción</strong></small></th>
                                                                 </tr>
                                                             </thead>
@@ -65,14 +66,19 @@
                                                                     <td data-label="Obj. Estratégico"><small>{{plan.nombre_objestra}}</small></td>
                                                                     <td data-label="Año Base">{{plan.anio_base_plan}}</td>
                                                                     <td data-label="Año Meta">{{plan.anio_meta_plan}}</td>
+                                                                    <td [ngStyle]="{'background-color': plan.activo_plan === false ? 'red' : 'green' }" data-label="Estado">
+                                                                        <label style="color: white" *ngIf="plan.activo_plan === true" class="control-label"><b>EN PROCESO</b></label>
+                                                                        <label style="color: white" *ngIf="plan.activo_plan === false" class="control-label"><b>FINALIZADO</b></label>
+
+                                                                    </td>
                                                                     <td data-label="Acción">
                                                                         <div class="btn-group">
                                                                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        <i class="fa fa-file-o"></i>
-                                                                        </button>
+                                                                                <i class="fa fa-file-o"></i>
+                                                                            </button>
                                                                             <div class="dropdown-menu">
                                                                                 <a class="dropdown-item pointer" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Editar</a>
-                                                                                <a class="dropdown-item pointer" (click)="eliminar(empresa)">Eliminar</a>
+                                                                                <a class="dropdown-item pointer" (click)="inactivarPlan(plan)">Finalizar</a>
 
                                                                             </div>
                                                                         </div>

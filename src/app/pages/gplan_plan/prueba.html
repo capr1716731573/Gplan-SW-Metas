@@ -1,0 +1,226 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <!-- Nav tabs -->
+                    <div *ngIf="cargando_tabla ">
+                        <app-loading2></app-loading2>
+                    </div>
+                    <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                        <div class="col-12 ">
+                            <div class="card ">
+                                <div class="card-body ">
+                                    <div class="col-12 ">
+                                        <div class="row ">
+                                            <div class="col-md-12 ">
+
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control col-md-12" placeholder="Buscar...." name="search" [(ngModel)]="filter" DirectivaMayusculas>
+                                                            <span class="input-group-btn pointer">
+                                                                      <button type="button" class="btn btn-info" (click)="open(modal,'{}')">
+                                                                          <i class="fa fa-plus"></i>   Nuevo
+                                                                      </button>
+                                                              </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+
+
+                                                <div class="form-group row ">
+                                                    <div class="table-responsive pointer col-md-12 ">
+                                                        <table class="table color-bordered-table info-bordered-table ">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col"><small><strong>#</strong></small></th>
+                                                                    <th scope="col"><small><strong>Año</strong></small></th>
+                                                                    <th scope="col"><small><strong>Planificado</strong></small></th>
+                                                                    <th scope="col"><small><strong>Ejecutado</strong></small></th>
+                                                                    <th scope="col"><small><strong>%</strong></small></th>
+                                                                    <th scope="col"><small><strong>Estado</strong></small></th>
+                                                                    <th scope="col"><small><strong>Acción</strong></small></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let meta of listaMetas | filter:filter | paginate: { itemsPerPage: 10, currentPage: p }; let i=i ndex ">
+                                                                    <td scope="row" data-label="#"><small>{{ meta.numeral_meta }}</small></td>
+                                                                    <td data-label="Año"><small>{{ meta.anio_meta }}</small></td>
+                                                                    <td data-label="Planificado"><small>{{ meta.planificado_meta }}</small></td>
+                                                                    <td data-label="Ejecutado"><small>{{ meta.ejecutado_meta }}</small></td>
+                                                                    <td data-label="%"><small>{{ meta.numeral_meta }}</small></td>
+                                                                    <td data-label="Estado"><small>{{ meta.estado_meta }}</small></td>
+                                                                    <td data-label="Acción">
+                                                                        <div class="btn-group">
+                                                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        <i class="fa fa-file-o"></i>
+                                                                        </button>
+                                                                            <div class="dropdown-menu">
+                                                                                <a class="dropdown-item" (click)="open(modal,meta)">Editar</a>
+                                                                                <a class="dropdown-item" (click)="eliminar(meta)">Eliminar</a>
+                                                                                <div class="dropdown-divider"></div>
+                                                                                <a class="dropdown-item" (click)="mostrarModal(capacitacion)">Auditoría Meta</a>
+                                                                                <!-- 
+                                                                                <a class="dropdown-item" *ngIf="capacitacion.ruta_pdf != null" [href]="capacitacion.ruta_pdf" target="_blank">Ver Archivo</a>
+                                                                                <a class="dropdown-item" (click)="eliminarAdjunto(capacitacion)">Eliminar Archivo</a> -->
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot></tfoot>
+                                                        </table>
+
+                                                        <br>
+
+                                                        <div class="col-12 ">
+                                                            <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- MODAL -->
+<ng-template #modal let-c="close" let-d="dismiss">
+
+    <form #formulario="ngForm" ngNativeValidate (ngSubmit)="guardar()">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Registro Meta {{ planTarget.pk_plan }}</h4>
+
+        </div>
+        <div class="modal-body">
+
+            <!-- Nav tabs -->
+            <div *ngIf="cargando_modal ">
+                <app-loading2></app-loading2>
+            </div>
+
+            <div class="row" *ngIf="!cargando_modal ">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="bg-theme stats-bar">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="p-20 active text-center">
+                                        <h6 class="text-white">Indicador</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ planTarget.indicador_plan }}</strong></h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 text-center">
+                                    <div class="p-20">
+                                        <h6 class="text-white">Línea Base</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ metaTarget.lineabase_meta }}</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 text-center">
+                                    <div class="p-20">
+                                        <h6 class="text-white">Año Base</h6>
+                                        <h6 class="text-white m-b-0"><strong>{{ metaTarget.aniobase_meta }}</strong>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Tiempo:</b></label>
+                                    <select class="form-control custom-select" [(ngModel)]="metaTarget.tiempo_meta" name="tiempo_meta" placeHolder="Seleccione.." required>
+                                            <option id="opt1" value="null" disabled>Seleccione Periodo</option>
+                                            <option id="opt2" value="BIANUAL">BIANUAL</option>
+                                            <option id="opt3" value="ANUAL">ANUAL</option>
+                                            <option id="opt4" value="SEMESTRAL">SEMESTRAL</option>
+                                            <option id="opt5" value="CUATRIMESTRAL">CUATRIMESTRAL</option>
+                                            <option id="opt6" value="TRIMESTRAL">TRIMESTRAL</option>
+                                            <option id="opt7" value="MENSUAL">MENSUAL</option>
+                                            <option id="opt8" value="SEMANAL">SEMANAL</option>
+                                            <option id="opt9" value="DIARIO">DIARIO</option>
+                                            <option id="opt10" value="OTRO">OTRO</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Año</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="metaTarget.anio_meta" name="anio_meta" placeholder="Año" required DirectivaNumeros>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Estado:</b></label>
+                                    <select class="form-control custom-select" [(ngModel)]="metaTarget.estado_meta" name="estado_meta" placeHolder="Seleccione.." required>
+                                            <option id="opt1" value="null" disabled>Seleccione Estado</option>
+                                            <option id="opt2" value="EJECUCION">EJECUCION</option>
+                                            <option id="opt3" value="FINALIZADA">FINALIZADA</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>Descripción</strong></label>
+                                    <textarea class="form-control" [(ngModel)]="metaTarget.descripcion_meta" name="descripcion_meta" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>Codificado</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="metaTarget.codificado_meta" DirectivaNumeros2 decimals="2" name="codificado_meta">
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Planificado</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="metaTarget.planificado_meta" DirectivaNumeros2 decimals="2" name="planificado_meta" required>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Ejecutado</b></label>
+                                    <input type="text" class="form-control" [(ngModel)]="metaTarget.ejecutado_meta" DirectivaNumeros2 decimals="2" name="ejecutado_meta" required>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="c('Save click')">Cancelar</button>
+            <button type="submit" class="btn btn-success" [disabled]="formulario.invalid">Guardar</button>
+        </div>
+    </form>
+</ng-template>

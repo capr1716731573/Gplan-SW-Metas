@@ -1,0 +1,365 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+
+                    <div>
+                        <!-- Nav tabs -->
+                        <div *ngIf="cargando_tabla ">
+                            <app-loading2></app-loading2>
+                        </div>
+                        <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+                            <div class="col-12 ">
+                                <div class="card ">
+                                    <h3 class="text-themecolor">Información General de la Meta</h3>
+                                    <div class="bg-theme stats-bar">
+
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="p-20 active text-center">
+                                                    <h6 class="text-white">Indicador</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ planTarget.indicador_plan }}</strong></h6>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">Año</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.anio_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">Planificado</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.planificado_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">Ejecutado</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.ejecutado_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">% Cumplimiento</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.porcentaje_cumplimiento_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">($) Planificado</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.planificado_presup_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 text-center">
+                                                <div class="p-20">
+                                                    <h6 class="text-white">($) Ejecutado</h6>
+                                                    <h6 class="text-white m-b-0"><strong>{{ metaTarget.ejecutado_presup_meta }}</strong>
+                                                    </h6>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- {{ metaTarget | json }} {{ metaTarget.calculos_totales.suma_tiempo }} -->
+                                    <div class="card-body ">
+                                        <!-- ============================================================== -->
+                                        <!-- Semaforizacion -->
+                                        <!-- ============================================================== -->
+                                        <h3 class="text-themecolor">Semaforización de Cumplimiento de Metas</h3>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: gray;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Extemporánea</h6>
+                                                                <h5 class="m-t-0 text-white">0%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: red;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Incumplida</h6>
+                                                                <h5 class="m-t-0 text-white">0.1% a 69%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="card" style="background-color:rgb(247, 211, 9);">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Parcialmente Cumplida</h6>
+                                                                <h5 class="m-t-0 text-white">70% al 84.9%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="card" style="background-color: green;">
+                                                    <div class="card-body">
+                                                        <div class="d-flex no-block">
+                                                            <!-- <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div> -->
+                                                            <div class="align-self-center">
+                                                                <h6 class="text-white m-t-10 m-b-0">Cumplida</h6>
+                                                                <h5 class="m-t-0 text-white">85% al 100%</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ============================================================== -->
+                                        <!-- Crear seguimientos -->
+                                        <!-- ============================================================== -->
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label><b>Temporalidad de Evaluación Meta</b></label>
+                                                    <select class="form-control" class="form-control" [disabled]='metaTarget.calculos_totales.suma_tiempo >= 12' [(ngModel)]="temporalidad" name="temporalidad" required>
+                                                      <option value="0" disabled selected>Seleccione...</option> 
+                                                      <option value="12">ANUAL</option> 
+                                                      <option value="6">SEMESTRAL</option> 
+                                                      <option value="4">CUATRIMESTRAL</option>
+                                                      <option value="3">TRIMESTRAL</option> 
+                                                      <option value="2">BIMENSUAL</option> 
+                                                      <option value="1">MENSUAL</option> 
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6">
+
+                                                <h5 class="card-title">Opciones</h5>
+                                                <div class="btn-group">
+                                                    <button [routerLink]="['/plan',planTarget.pk_plan ,planTarget.fk_gad]" type="button" class="btn waves-effect waves-light btn-warning">
+                                                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+                                                    </button>
+
+                                                    <button type="button" (click)="open(modal,'{}')" class="btn waves-effect waves-light btn-primary">
+                                                        <i class ="fa fa-spinner"></i> Crear Seguimiento
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+                                        <!--  <div class="col-md-12 ">
+ -->
+                                        <div class="form-group row ">
+                                            <div class="table-responsive pointer col-md-12 ">
+                                                <table class="table color-bordered-table info-bordered-table ">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th scope="col"><small><strong>Desde</strong></small></th>
+                                                            <th scope="col"><small><strong>Hasta</strong></small></th>
+                                                            <th scope="col"><small data-toggle="tooltip" data-placement="bottom" title="" data-original-title=" Porcentaje de Avance Físico"><strong>Porcentaje de Avance Físico &nbsp; <i class="fa fa-info-circle"></i></strong></small></th>
+                                                            <th scope="col"><small data-toggle="tooltip" data-placement="bottom" title="" data-original-title=" Temporalidad de ejecución del seguimiento "><strong>Temporalidad Evaluación &nbsp; <i class="fa fa-info-circle"></i></strong></small></th>
+                                                            <th scope="col"><small data-toggle="tooltip" data-placement="bottom" title="" data-original-title=" Porcentaje de Avance Presupuestario"><strong>Porcentaje de Avance Presupuestario &nbsp; <i class="fa fa-info-circle"></i></strong></small></th>
+
+                                                            <th scope="col"><small><strong>Acción</strong></small></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let submeta of listaSubMetas | paginate: { itemsPerPage: 10, currentPage: p }; let i=i ndex ">
+                                                            <td data-label="Desde" data-label="Desde">{{ submeta.desde_submeta }}</td>
+                                                            <td data-label="Hasta">{{ submeta.hasta_submeta }}</td>
+                                                            <td data-label="PAF" [ngStyle]="{'background-color': semaforizacionValor(submeta.porcentaje_submeta).bg, 'color':semaforizacionValor(submeta.porcentaje_submeta).texto}"><strong>{{ submeta.porcentaje_submeta }} %</strong></td>
+                                                            <td data-label="Temp"><small>{{ submeta.temporalidad }}</small></td>
+                                                            <td data-label="AP" [ngStyle]="{'background-color': semaforizacionDinero(submeta.porcentaje_valor).bg, 'color':semaforizacionDinero(submeta.porcentaje_valor).texto}"><strong>{{ submeta.porcentaje_valor }} %</strong></td>
+                                                            <td data-label="Acción">
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                      <i class="fa fa-file-o"></i>
+                                                                      </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item" (click)="open(modal,submeta)">
+                                                                            <div *ngIf="planTarget.activo_plan">
+                                                                                Editar
+                                                                            </div>
+                                                                            <div *ngIf="!planTarget.activo_plan">
+                                                                                Ver
+                                                                            </div>
+                                                                        </a>
+                                                                        <a class="dropdown-item" (click)="eliminarSeguimiento(submeta)">Eliminar</a>
+                                                                        <!-- 
+                                                                            <a class="dropdown-item" [routerLink]="['/seguimiento',planTarget.pk_plan,meta.pk_meta]">Seguimiento</a> -->
+                                                                        <!-- <div class="dropdown-divider"></div>
+                                                                          <a class="dropdown-item" (click)="mostrarModal(capacitacion)">Auditoría Meta</a> -->
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
+
+                                                <br>
+
+                                                <div class="col-12 ">
+                                                    <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--  </div> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- MODAL -->
+<ng-template #modal let-c="close" let-d="dismiss">
+
+    <form #formulario="ngForm" ngNativeValidate (ngSubmit)="confirmarGuardar()">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Registro Seguimiento</h4>
+
+        </div>
+        <div class="modal-body">
+
+            <!-- Nav tabs -->
+            <div *ngIf="cargando_modal ">
+                <app-loading2></app-loading2>
+            </div>
+
+
+            <div class="row" *ngIf="!cargando_modal ">
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="row">
+                            <h4 class="container text-themecolor">Temporalidad de Evaluación</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Desde</b></label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" placeholder="dd/mm/yyyy" [disabled]="!planTarget.activo_plan" [(ngModel)]="submetaTarget.desde_submeta" name="desde_submeta" required>
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Hasta</b></label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" placeholder="dd/mm/yyyy" [disabled]="!planTarget.activo_plan" [(ngModel)]="submetaTarget.hasta_submeta" name="hasta_submeta" required>
+                                        <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <h4 class="container text-themecolor">Porcentaje de Avance Físico (PAF)</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Planificado</b>&nbsp;&nbsp; </label>
+                                    <input type="text" class="form-control" (keyup)="calcularPorcentajeValor()" [disabled]="!planTarget.activo_plan" [(ngModel)]="submetaTarget.planificado_submeta" name="planificado_submeta" placeholder="0.00" DirectivaNumeros2 decimals="2" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Ejecutado</b>&nbsp;&nbsp; </label>
+                                    <input type="text" class="form-control" (keyup)="calcularPorcentajeValor()" [disabled]="!planTarget.activo_plan" [(ngModel)]="submetaTarget.ejecutado_submeta" name="ejecutado_submeta" placeholder="0.00" DirectivaNumeros2 decimals="2" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 ">
+                                <div class="form-group text-center ">
+                                    <label class="control-label "><b>Porcentaje (PAF)</b></label>
+                                    <h2><span [ngStyle]="{ 'background-color': semaforizacionValor(porcentajeFisico).bg, 'color':semaforizacionValor(porcentajeFisico).texto} "> {{ porcentajeFisico }} % </span></h2>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <h4 class="container text-themecolor">Porcentaje de Avance Presupuestario (AP)</h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Planificado</b>&nbsp;&nbsp; </label>
+                                    <input type="text" class="form-control" (keyup)="calcularPorcentajePresupuesto()" [disabled]="!planTarget.activo_plan || planTarget.presupuesto_plan <= 0 " [(ngModel)]="submetaTarget.presup_plani_submeta" name="presup_plani_submeta" placeholder="0.00"
+                                        DirectivaNumeros2 decimals="2" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Codificado</b>&nbsp;&nbsp; </label>
+                                    <input type="text" class="form-control" [(ngModel)]="submetaTarget.presup_codif_submeta" [disabled]="!planTarget.activo_plan || planTarget.presupuesto_plan <= 0" name="presup_codif_submeta" placeholder="0.00" DirectivaNumeros2 decimals="2">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label"><b>* Ejecutado</b>&nbsp;&nbsp; </label>
+                                    <input type="text" class="form-control" (keyup)="calcularPorcentajePresupuesto()" [disabled]="!planTarget.activo_plan || planTarget.presupuesto_plan <= 0" [(ngModel)]="submetaTarget.presup_ejec_submeta" name="presup_ejec_submeta" placeholder="0.00" DirectivaNumeros2
+                                        decimals="2" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 ">
+                                <div class="form-group text-center ">
+                                    <label class="control-label "><b>Porcentaje (AP)</b></label>
+                                    <h2><span [ngStyle]="{ 'background-color': semaforizacionDinero(porcentajePresupuesto).bg, 'color':semaforizacionDinero(porcentajePresupuesto).texto} "> {{ porcentajePresupuesto }} % </span></h2>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer ">
+            <button type="button " class="btn btn-danger " (click)="close()">Cancelar</button>
+            <button type="submit " class="btn btn-success" *ngIf="planTarget.activo_plan" [disabled]="formulario.invalid ">Guardar</button>
+        </div>
+    </form>
+</ng-template>

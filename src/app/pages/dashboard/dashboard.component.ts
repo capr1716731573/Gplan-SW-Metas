@@ -7,11 +7,12 @@ import { SettingsService } from '../../services/settings/settings.service';
   styles: []
 })
 export class DashboardComponent implements OnInit {
+  userLogin:any;
 
   constructor(public _settingService: SettingsService) { }
 
   ngOnInit() {
-    
+    this.userLogin=this._settingService.myUser;
   }
 
 }

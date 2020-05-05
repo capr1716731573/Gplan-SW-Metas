@@ -66,6 +66,7 @@ import { EjeComponent } from './gplan_configuracion/eje.component';
 import { ObjetivoComponent } from './gplan_configuracion/objetivo.component';
 import { OdsObjetivoComponent } from './gplan_configuracion/ods-objetivo.component';
 import { ObjetivoEstrategicoComponent } from './gplan_configuracion/objetivo-estrategico.component';
+import { SubmetasComponent } from './gplan_plan/submetas.component';
 
 
 @NgModule({
@@ -113,7 +114,8 @@ import { ObjetivoEstrategicoComponent } from './gplan_configuracion/objetivo-est
         EjeComponent,
         ObjetivoComponent,
         OdsObjetivoComponent,
-        ObjetivoEstrategicoComponent
+        ObjetivoEstrategicoComponent,
+        SubmetasComponent
     ],
     exports:[
         DashboardComponent,

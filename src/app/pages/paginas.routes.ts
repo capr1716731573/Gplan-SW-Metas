@@ -35,6 +35,7 @@ import { Contenedor1Component } from './gplan_configuracion/contenedor1.componen
 import { GadComponent } from './gplan_configuracion/gad.component';
 import { Contenedor2Component } from './gplan_configuracion/contenedor2.component';
 import { ObjetivoEstrategicoComponent } from './gplan_configuracion/objetivo-estrategico.component';
+import { SubmetasComponent } from './gplan_plan/submetas.component';
 
 const pagesRoutes: Routes=[
     //RUTA DE PAGINAS O DE PAGINA PRINCIPAL QUE TIENE TODO HEADER , SIDEBAR , MAIN PAGE
@@ -78,6 +79,7 @@ const pagesRoutes: Routes=[
             { path:'gad', component:GadComponent ,data:{ titulo:'Registro GAD'},canActivate:[VerificarTokenGuard]},
             { path:'contenedor1', component:Contenedor1Component ,data:{ titulo:'Configuración GADs'},canActivate:[VerificarTokenGuard]},
             { path:'contenedor2', component:Contenedor2Component ,data:{ titulo:'Configuración ODS'},canActivate:[VerificarTokenGuard]},
+            { path:'seguimiento/:plan/:meta', component:SubmetasComponent ,data:{ titulo:'Seguimiento'},canActivate:[VerificarTokenGuard]},
 
 
 
