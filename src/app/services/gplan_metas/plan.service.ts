@@ -51,8 +51,6 @@ export class PlanService {
         return Observable.throw(err);
       }))
   } 
-
-
   
   cargarDatosID(id:number):Observable<any>{
     let url_ws=`${this.url}/${id}`;
@@ -160,5 +158,110 @@ export class PlanService {
         console.log(`Error no controlado - Service Obtener ${this.tabla}= `+ JSON.stringify(err));
         return Observable.throw(err);
       }))
+  }
+  
+  getReportePlan(id:number){
+    let url_ws=`${this.url}/reporte/${id}`;
+    return this.http.get(url_ws)
+    .pipe(map((resp:any) =>{
+        let dato={};
+        if(resp.status === 'error'){
+          console.log(`Error - Service Obtener ${this.tabla}: `,resp.message,'error')
+        }else{
+          dato=resp.data;
+        }
+
+        console.log(`El dato es : ${dato}`);
+        let FileBlob = this.base64ToBlob(dato, 'text/plain');
+        console.log(`El blob es : ${JSON.stringify(FileBlob)}`);
+        return this.saveAsPDF(FileBlob, 'xdd');
+
+      }))
+      .pipe(catchError( err =>{
+        if(err.statusText === 'Unauthorized'){
+          swal.fire(
+            `Sesión Caducada`,
+            'Tiempo de Sesión expirada, dirijase al login del sistema e inicie la sesión nuevamente.',
+            'error'
+          );
+          
+        }else{
+          swal.fire(
+            `Error no controlado en ${this.tabla}`,
+            `Revisar Detalle en consola`,
+            'error'
+          )
+        }
+
+        console.log(`Error no controlado - Service Obtener ${this.tabla}= `+ JSON.stringify(err));
+        return Observable.throw(err);
+      }))
   } 
+
+
+  saveAsPDF(blob: Blob, fileName: string) {
+    let file = new Blob([blob], { type: 'application/pdf' });
+    let fileURL = URL.createObjectURL(file);
+    //FileSaver.saveAs(file, `${fileName}.pdf`);
+    return fileURL;
+  }
+
+   base64ToBlob(b64Data, contentType='', sliceSize=512) {
+    b64Data = b64Data.replace(/\s/g, ''); //IE compatibility...
+    let byteCharacters = atob(b64Data);
+    let byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        let slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        let byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        let byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    return new Blob(byteArrays, {type: contentType});
+}
+
+pruebaPDF(pk_plan:number):Observable<any>{
+  let url_ws=`${dominio_ws}/reporte/plan/${pk_plan}`;
+  return this.http.get(url_ws)
+  .pipe(map((resp:any) =>{
+      let dato={};
+      if(resp.status === 'error'){
+        console.log(`Error - Service Obtener ${this.tabla}: `,resp.message,'error')
+        
+      }else{
+        dato=resp;
+      }
+      console.log(JSON.stringify(dato));
+
+      let FileBlob = this.base64ToBlob(resp.b64, 'text/plain');
+      return this.saveAsPDF(FileBlob, 'xdd');
+    }))
+    .pipe(catchError( err =>{
+      if(err.statusText === 'Unauthorized'){
+        swal.fire(
+          `Sesión Caducada`,
+          'Tiempo de Sesión expirada, dirijase al login del sistema e inicie la sesión nuevamente.',
+          'error'
+        );
+        
+      }else{
+        swal.fire(
+          `Error no controlado en ${this.tabla}`,
+          `Revisar Detalle en consola`,
+          'error'
+        )
+      }
+      
+    
+      
+      console.log(`Error no controlado - Service Obtener ${this.tabla}= `+ JSON.stringify(err));
+      return Observable.throw(err);
+    }))
+} 
+
+
+  
 }

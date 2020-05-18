@@ -66,7 +66,8 @@ export class SubmetasComponent implements OnInit {
     unimed_plan:null,
     tipo_va_plan:null,
     meta_plan:null,
-    va_anual_plan:null
+    va_anual_plan:null,
+    responsable_plan:null,
   }
 
   //MENSAJES TOAST
