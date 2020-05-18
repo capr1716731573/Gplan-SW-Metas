@@ -30,7 +30,8 @@ export interface PlanModel{
     unimed_plan:string,
     tipo_va_plan:string,
     meta_plan:any,
-    va_anual_plan:any
+    va_anual_plan:any,
+    responsable_plan:string
 }
 
 export interface MetaModel{

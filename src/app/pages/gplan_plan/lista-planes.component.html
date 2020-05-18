@@ -12,6 +12,7 @@
 
 
                     <div class="row animated fadeIn " *ngIf="!cargando_tabla ">
+
                         <div class="col-12 ">
                             <div class="card ">
                                 <div class="card-body ">
@@ -78,6 +79,7 @@
                                                                             </button>
                                                                             <div class="dropdown-menu">
                                                                                 <a class="dropdown-item pointer" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Editar</a>
+                                                                                <a class="dropdown-item pointer" (click)="open(modal);getReport(plan);">Reporte</a>
                                                                                 <a class="dropdown-item pointer" (click)="inactivarPlan(plan)">Finalizar</a>
 
                                                                             </div>
@@ -109,3 +111,14 @@
         </div>
     </div>
 </div>
+<ng-template #modal let-c="close" let-d="dismiss">
+
+    <div class="modal-body">
+
+        <!-- Nav tabs -->
+        <app-loading2></app-loading2>
+
+    </div>
+
+</ng-template>
+<!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(content)" frameborder="0" width="100%" height="800px"></iframe> -->

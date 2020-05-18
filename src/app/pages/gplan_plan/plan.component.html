@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label"><strong>* Componentes</strong></label>
                                     <ng-select [(ngModel)]="planTarget.pk_compo" name="pk_compo" bindValue="pk_compo" placeholder="Seleccione.." bindLabel="nombre_compo" [items]="listaComponentes" required DirectivaMayusculas>
@@ -109,6 +109,13 @@
 
                                         </ng-template>
                                     </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label"><strong>* Resposanble</strong></label>
+                                    <input type="text" class="form-control" [(ngModel)]="planTarget.responsable_plan" name="responsable_plan" placeholder="Ingrese Resposanble" required>
                                 </div>
                             </div>
                         </div>

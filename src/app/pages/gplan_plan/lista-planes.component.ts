@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GadService } from '../../services/gplan_metas/gad.service';
 import { PlanService } from '../../services/gplan_metas/plan.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+
 import swal from 'sweetalert2';
 
 @Component({
@@ -10,12 +13,23 @@ import swal from 'sweetalert2';
 })
 export class ListaPlanesComponent implements OnInit {
   cargando_tabla:boolean=true;
+  cargando_reporte:boolean=false;
   gad:any;
   listaPlanes:any[]=[];
+
+  content:string = "";
+
   constructor(
     public _gadService: GadService,
-    public _planService:PlanService
-  ) { }
+    public _planService:PlanService,
+    public sanitizer: DomSanitizer,
+    private modalService: NgbModal,
+    private configuracionModal: NgbModalConfig
+  ) {
+     //Configuracion para abrir el modal con Ng-Bootstrap
+     this.configuracionModal.backdrop = 'static';
+     this.configuracionModal.keyboard = false;
+   }
 
   ngOnInit() {
     this.cargarGAD();
@@ -65,4 +79,32 @@ export class ListaPlanesComponent implements OnInit {
     });
     
   }
+
+  /* getReport(plan){
+    this._planService.getReportePlan(plan.pk_plan)
+    .subscribe((datos:any)=>{
+      this.close();
+      this.content = datos;
+      window.open(this.content, '_blank');
+    })
+  } */
+
+  getReport(plan){
+    this._planService.pruebaPDF(plan.pk_plan)
+    .subscribe((datos:any)=>{
+      this.cargando_reporte=false;
+      this.content = datos;
+      this.close();
+      window.open(this.content, '_blank');
+    })
+  }
+
+  open(content) {
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  close() {
+    this.modalService.dismissAll('');
+  }
+
 }

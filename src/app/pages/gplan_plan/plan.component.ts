@@ -75,7 +75,8 @@ export class PlanComponent implements OnInit   {
     unimed_plan:null,
     tipo_va_plan:null,
     meta_plan:null,
-    va_anual_plan:null
+    va_anual_plan:null,
+    responsable_plan:null
   }
 
   toast = swal.mixin({
@@ -244,6 +245,7 @@ export class PlanComponent implements OnInit   {
   }
 
   reset(id:number){
+    let nombresUsuarios=this._settingsService.getInfoUser();
     
     if(id === 0){
       this.accion='ingresar';
@@ -268,7 +270,9 @@ export class PlanComponent implements OnInit   {
         unimed_plan:'Unidad',
         tipo_va_plan:null,
         meta_plan:null,
-        va_anual_plan:null
+        va_anual_plan:null,
+        responsable_plan:`${nombresUsuarios.nombre_user} ${nombresUsuarios.apellido_user}`,
+        
       }
      
       this.cargando_tabla=false;
@@ -302,7 +306,8 @@ export class PlanComponent implements OnInit   {
               unimed_plan:p.unimed_plan,
               tipo_va_plan:p.tipo_va_plan,
               meta_plan:p.meta_plan,
-              va_anual_plan:p.va_anual_plan
+              va_anual_plan:p.va_anual_plan,
+              responsable_plan:p.responsable_plan
             }
             this.listaObjetivosPNTV=Object.values(objetivos);
             this.cargando_tabla=false;
