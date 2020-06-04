@@ -78,9 +78,10 @@
                                                                                 <i class="fa fa-file-o"></i>
                                                                             </button>
                                                                             <div class="dropdown-menu">
-                                                                                <a class="dropdown-item pointer" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Editar</a>
+                                                                                <a class="dropdown-item pointer" *ngIf="plan.activo_plan" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Editar</a>
+                                                                                <a class="dropdown-item pointer" *ngIf="!plan.activo_plan" [routerLink]="['/plan',plan.pk_plan,gad.pk_gad]">Ver</a>
                                                                                 <a class="dropdown-item pointer" (click)="open(modal);getReport(plan);">Reporte</a>
-                                                                                <a class="dropdown-item pointer" (click)="inactivarPlan(plan)">Finalizar</a>
+                                                                                <a class="dropdown-item pointer" *ngIf="plan.activo_plan" (click)="inactivarPlan(plan)">Finalizar</a>
 
                                                                             </div>
                                                                         </div>

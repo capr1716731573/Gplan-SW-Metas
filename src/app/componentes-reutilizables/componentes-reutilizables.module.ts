@@ -7,6 +7,7 @@ import { IncrementadorComponent } from './incrementador/incrementador.component'
 import { GraficoDonaComponent } from './grafico-dona/grafico-dona.component';
 import { Loading1Component } from './loading1/loading1.component';
 import { Loading2Component } from './loading2/loading2.component';
+import { Loading3Component } from './loading3/loading3.component';
 
 
 @NgModule({

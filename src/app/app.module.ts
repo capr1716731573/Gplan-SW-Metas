@@ -18,12 +18,14 @@ import { PagesModule } from './pages/paginas.module';
 import { ServiceModule } from './services/service.module';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Loading3Component } from './componentes-reutilizables/loading3/loading3.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NopagefoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    Loading3Component
   ],
   imports: [
     BrowserModule,

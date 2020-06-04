@@ -7973,8 +7973,8 @@ File: scss
         line-height: 100px;
     }
     .login-register {
-        position: relative;
-        overflow: hidden;
+        position: sticky;
+        /*overflow: hidden;*/
     }
     .login-box {
         width: 90%;
@@ -7983,7 +7983,7 @@ File: scss
         padding: 10% 0;
     }
     .login-sidebar .login-box {
-        position: relative;
+        position: sticky;
     }
     /*This is for chat page*/
     .chat-main-box .chat-left-aside {

@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit {
   cargando_accion:boolean=false;
   class_active:number;
   accion:string='I';
+  filterc:string='';
 
   menuCabecera:menuModel={
     pk_menu:null,
