@@ -11,6 +11,10 @@ import { ObjetivoODSModel } from '../../models/metas.model';
   styles: []
 })
 export class OdsObjetivoComponent implements OnInit {
+ //necesario colocar estas variables para la paginacion
+ p: number = 1;
+ filter:any;
+
   cargando_tabla:boolean=true;
   
   pk_ods:any=null;

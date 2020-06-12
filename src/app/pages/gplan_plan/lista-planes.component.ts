@@ -12,6 +12,10 @@ import swal from 'sweetalert2';
   styles: []
 })
 export class ListaPlanesComponent implements OnInit {
+  //necesario colocar estas variables para la paginacion
+  p: number = 1;
+  filter:any;
+  
   cargando_tabla:boolean=true;
   cargando_reporte:boolean=false;
   gad:any;
@@ -80,15 +84,15 @@ export class ListaPlanesComponent implements OnInit {
     
   }
 
-  /* getReport(plan){
+/*   getReport(plan){
     this._planService.getReportePlan(plan.pk_plan)
     .subscribe((datos:any)=>{
       this.close();
       this.content = datos;
       window.open(this.content, '_blank');
     })
-  } */
-
+  }
+ */
   getReport(plan){
     this._planService.pruebaPDF(plan.pk_plan)
     .subscribe((datos:any)=>{

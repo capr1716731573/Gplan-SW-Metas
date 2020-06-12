@@ -13,6 +13,9 @@ import { ObjEstrategicoService } from '../../services/gplan_metas/obj-estrategic
   styles: []
 })
 export class ObjetivoEstrategicoComponent implements OnInit {
+   //necesario colocar estas variables para la paginacion
+   p: number = 1;
+   filter:any;
   cargando_tabla:boolean=true;
  
   objetivoEstrategicoTarget:ObjetivoEstrategicoModel={

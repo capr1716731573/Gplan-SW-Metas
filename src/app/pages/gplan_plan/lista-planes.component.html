@@ -49,10 +49,8 @@
                                                         <table class="table color-bordered-table info-bordered-table ">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col"><small><strong>ODS</strong></small></th>
-                                                                    <th scope="col"><small><strong>Eje PNTV</strong></small></th>
-                                                                    <th scope="col"><small><strong>Objetivo</strong></small></th>
-                                                                    <th scope="col"><small><strong>Obj. Estratégico </strong></small></th>
+                                                                    <th scope="col" width="30%"><small><strong>Programa</strong></small></th>
+                                                                    <th scope="col" width="30%"><small><strong>Proyecto</strong></small></th>
                                                                     <th scope="col"><small><strong>Año Base </strong></small></th>
                                                                     <th scope="col"><small><strong>Año Meta </strong></small></th>
                                                                     <th scope="col"><small><strong>Estado </strong></small></th>
@@ -60,11 +58,9 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr *ngFor="let plan of listaPlanes | filter:filter | paginate: { itemsPerPage: 30, currentPage: p }; let i=i ndex ">
-                                                                    <td scope="row" data-label="ODS"><small>{{plan.nombre_ods}}</small></td>
-                                                                    <td data-label="Eje PNTV"><small>{{plan.nombre_eje}}</small></td>
-                                                                    <td data-label="Objetivo"><small>{{plan.nombre_obj}}</small></td>
-                                                                    <td data-label="Obj. Estratégico"><small>{{plan.nombre_objestra}}</small></td>
+                                                                <tr *ngFor="let plan of listaPlanes | filter:filter | paginate: { itemsPerPage: 10, currentPage: p }; let i=index ">
+                                                                    <td scope="row" data-label="Programa"><small>{{plan.programa_plan}}</small></td>
+                                                                    <td data-label="Proyecto"><small>{{plan.proyecto_plan}}</small></td>
                                                                     <td data-label="Año Base">{{plan.anio_base_plan}}</td>
                                                                     <td data-label="Año Meta">{{plan.anio_meta_plan}}</td>
                                                                     <td [ngStyle]="{'background-color': plan.activo_plan === false ? 'red' : 'green' }" data-label="Estado">
@@ -94,7 +90,7 @@
                                                         <br>
 
                                                         <div class="col-12 ">
-                                                            <pagination-controls class="pagination" (pageChange)="p=$event "></pagination-controls>
+                                                            <pagination-controls class="pagination" (pageChange)="p=$event " autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                                                         </div>
 
                                                     </div>
@@ -122,4 +118,3 @@
     </div>
 
 </ng-template>
-<!-- <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(content)" frameborder="0" width="100%" height="800px"></iframe> -->
